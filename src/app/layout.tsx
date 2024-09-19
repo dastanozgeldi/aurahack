@@ -1,3 +1,5 @@
+import { ClerkProvider } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Nav } from "@/components/nav";
@@ -26,16 +28,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <main className="mx-auto flex min-h-screen max-w-xl flex-col p-6">
-          <Nav />
-          <div className="mb-6 flex-grow">{children}</div>
-          <Footer />
-        </main>
-      </body>
-    </html>
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+      }}
+    >
+      <html lang="en" className="dark">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <main className="mx-auto flex min-h-screen max-w-xl flex-col p-6">
+            <Nav />
+            <div className="mb-6 flex-grow">{children}</div>
+            <Footer />
+          </main>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

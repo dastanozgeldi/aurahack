@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { buttonVariants } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
+import { SignedOut, SignInButton, SignedIn, UserButton } from "@clerk/nextjs";
 
 export const Nav = () => (
   <nav className="flex items-center justify-between">
@@ -18,6 +19,14 @@ export const Nav = () => (
       >
         win chance
       </Link>
+      <SignedOut>
+        <SignInButton>
+          <Button>sign in</Button>
+        </SignInButton>
+      </SignedOut>
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
     </div>
   </nav>
 );
