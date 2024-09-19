@@ -8,7 +8,7 @@ const World = dynamic(
   () => import("@/components/ui/globe").then((m) => m.World),
   {
     ssr: false,
-  }
+  },
 );
 
 export default function Home() {
@@ -30,9 +30,9 @@ export default function Home() {
           className="div"
         >
           <h2 className="text-center text-2xl font-bold text-black dark:text-white md:text-4xl">
-            hackathons connect the world.
+            find hackathons everywhere.
           </h2>
-          <p className="mx-auto mt-2 max-w-md text-center text-base font-normal text-neutral-700 dark:text-neutral-200 md:text-lg">
+          <p className="mx-auto mt-2 text-center text-base font-normal text-neutral-700 dark:text-neutral-200 md:text-lg">
             we are an organization from kazakhstan that empowers developers to
             build amazing projects in shortest periods of time.
           </p>
