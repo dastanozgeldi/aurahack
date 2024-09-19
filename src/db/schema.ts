@@ -34,6 +34,9 @@ export const hackathons = pgTable("hackathons_table", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+export type SelectHackathon = typeof hackathons.$inferSelect;
+export type InsertHackathon = typeof hackathons.$inferInsert;
+
 export const hackathonsRelations = relations(hackathons, ({ one, many }) => ({
   organizer: one(organizers, {
     fields: [hackathons.organizerId],
