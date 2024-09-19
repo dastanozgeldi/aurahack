@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -42,6 +43,8 @@ export default function RootLayout({
             <div className="mb-6 flex-grow">{children}</div>
             <Footer />
           </main>
+
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>
