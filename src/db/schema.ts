@@ -15,9 +15,6 @@ export const organizersTable = pgTable("organizers_table", {
   phone: text("phone").notNull(),
 
   createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at")
-    .notNull()
-    .$onUpdate(() => new Date()),
 });
 
 export const organizersRelations = relations(organizersTable, ({ many }) => ({
@@ -35,9 +32,6 @@ export const hackathonsTable = pgTable("hackathons_table", {
     .notNull(),
 
   createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at")
-    .notNull()
-    .$onUpdate(() => new Date()),
 });
 
 export const hackathonsRelations = relations(
@@ -58,9 +52,6 @@ export const teamsTable = pgTable("teams_table", {
   hackathonId: integer("hackathon_id"),
 
   createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at")
-    .notNull()
-    .$onUpdate(() => new Date()),
 });
 
 export const teamsRelations = relations(teamsTable, ({ one, many }) => ({
@@ -77,9 +68,6 @@ export const profilesTable = pgTable("profiles_table", {
   username: varchar("username", { length: 20 }).unique(),
 
   createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at")
-    .notNull()
-    .$onUpdate(() => new Date()),
 });
 
 export const profilesRelations = relations(profilesTable, ({ one }) => ({
@@ -101,9 +89,6 @@ export const projectsTable = pgTable("projects_table", {
   hackathonId: integer("hackathon_id"),
 
   createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at")
-    .notNull()
-    .$onUpdate(() => new Date()),
 });
 
 export const projectsRelations = relations(projectsTable, ({ one }) => ({
