@@ -8,7 +8,7 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 
-export const organizersTable = pgTable("organizers_table", {
+export const organizers = pgTable("organizers_table", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
@@ -17,16 +17,16 @@ export const organizersTable = pgTable("organizers_table", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
-export const organizersRelations = relations(organizersTable, ({ many }) => ({
-  hackathons: many(hackathonsTable),
+export const organizersRelations = relations(organizers, ({ many }) => ({
+  hackathons: many(hackathons),
 }));
 
-export const hackathonsTable = pgTable("hackathons_table", {
+export const hackathons = pgTable("hackathons_table", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   description: text("description").notNull(),
   organizerId: integer("organizer_id")
-    .references(() => organizersTable.id, {
+    .references(() => organizers.id, {
       onDelete: "cascade",
     })
     .notNull(),
@@ -34,19 +34,16 @@ export const hackathonsTable = pgTable("hackathons_table", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
-export const hackathonsRelations = relations(
-  hackathonsTable,
-  ({ one, many }) => ({
-    organizer: one(organizersTable, {
-      fields: [hackathonsTable.organizerId],
-      references: [organizersTable.id],
-    }),
-    teams: many(teamsTable),
-    projects: many(projectsTable),
+export const hackathonsRelations = relations(hackathons, ({ one, many }) => ({
+  organizer: one(organizers, {
+    fields: [hackathons.organizerId],
+    references: [organizers.id],
   }),
-);
+  teams: many(teams),
+  projects: many(projects),
+}));
 
-export const teamsTable = pgTable("teams_table", {
+export const teams = pgTable("teams_table", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   hackathonId: integer("hackathon_id"),
@@ -54,15 +51,15 @@ export const teamsTable = pgTable("teams_table", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
-export const teamsRelations = relations(teamsTable, ({ one, many }) => ({
-  hackathon: one(hackathonsTable, {
-    fields: [teamsTable.hackathonId],
-    references: [hackathonsTable.id],
+export const teamsRelations = relations(teams, ({ one, many }) => ({
+  hackathon: one(hackathons, {
+    fields: [teams.hackathonId],
+    references: [hackathons.id],
   }),
-  members: many(profilesTable),
+  members: many(profiles),
 }));
 
-export const profilesTable = pgTable("profiles_table", {
+export const profiles = pgTable("profiles_table", {
   userId: text("user_id").primaryKey(),
   name: text("name").notNull(),
   username: varchar("username", { length: 20 }).unique(),
@@ -70,19 +67,19 @@ export const profilesTable = pgTable("profiles_table", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
-export const profilesRelations = relations(profilesTable, ({ one }) => ({
-  user: one(teamsTable, {
-    fields: [profilesTable.userId],
-    references: [teamsTable.id],
+export const profilesRelations = relations(profiles, ({ one }) => ({
+  user: one(teams, {
+    fields: [profiles.userId],
+    references: [teams.id],
   }),
 }));
 
-export const projectsTable = pgTable("projects_table", {
+export const projects = pgTable("projects_table", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   githubUrl: text("github_url").notNull(),
   teamId: integer("team_id")
-    .references(() => teamsTable.id, {
+    .references(() => teams.id, {
       onDelete: "cascade",
     })
     .notNull(),
@@ -91,13 +88,13 @@ export const projectsTable = pgTable("projects_table", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
-export const projectsRelations = relations(projectsTable, ({ one }) => ({
-  team: one(teamsTable, {
-    fields: [projectsTable.teamId],
-    references: [teamsTable.id],
+export const projectsRelations = relations(projects, ({ one }) => ({
+  team: one(teams, {
+    fields: [projects.teamId],
+    references: [teams.id],
   }),
-  hackathon: one(hackathonsTable, {
-    fields: [projectsTable.hackathonId],
-    references: [hackathonsTable.id],
+  hackathon: one(hackathons, {
+    fields: [projects.hackathonId],
+    references: [hackathons.id],
   }),
 }));
