@@ -22,7 +22,7 @@ import {
 import Link from "next/link";
 
 export default function Page() {
-  const { loading, link, onSubmit } = useGenerate();
+  const { loading, deck, onSubmit } = useGenerate();
 
   return (
     <Card className="mt-6">
@@ -40,7 +40,7 @@ export default function Page() {
             <Input
               id="githubUrl"
               name="githubUrl"
-              placeholder="https://github.com/dastanozgeldi/boribay"
+              placeholder="https://github.com/dastanozgeldi/blog"
               autoComplete="off"
               required
             />
@@ -70,19 +70,18 @@ export default function Page() {
             </Select>
           </div>
 
-          <Button className="mt-3" disabled={loading}>
+          <Button className="mt-3 w-full" disabled={loading}>
             {loading && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
             Submit
           </Button>
         </form>
 
-        {link && (
-          <p className="mt-3 flex items-center justify-end gap-3 text-center">
-            the presentation is ready!
-            <Link href={link} download>
-              <Button variant="outline">download</Button>
-            </Link>
-          </p>
+        {deck && (
+          <Link className="w-full" href={`/decks/${deck.id}`}>
+            <Button className="mt-3 w-full" variant="outline">
+              visit deck
+            </Button>
+          </Link>
         )}
       </CardContent>
     </Card>

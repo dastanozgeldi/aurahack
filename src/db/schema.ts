@@ -102,6 +102,9 @@ export const decksRelations = relations(decks, ({ one }) => ({
   }),
 }));
 
+export type SelectDeck = typeof decks.$inferSelect;
+export type InsertDeck = typeof decks.$inferInsert;
+
 export const projects = pgTable("projects_table", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),

@@ -2,11 +2,12 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { toast } from "sonner";
 import { generatePresentation } from "./actions";
+import { SelectDeck } from "@/db/schema";
 
 export const useGenerate = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [link, setLink] = useState<string | null>(null);
+  const [deck, setDeck] = useState<SelectDeck | null>(null);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -15,10 +16,10 @@ export const useGenerate = () => {
 
     try {
       setLoading(true);
-      const downloadLink = await generatePresentation(formData);
-      setLink(downloadLink);
+      const deck = await generatePresentation(formData);
+      setDeck(deck);
 
-      toast.success("Joined hackathon successfully.");
+      toast.success("Generated successfully.");
     } catch {
       toast.error("Failed to join the hackathon.");
     } finally {
@@ -29,7 +30,7 @@ export const useGenerate = () => {
 
   return {
     loading,
-    link,
+    deck,
     onSubmit,
   };
 };
