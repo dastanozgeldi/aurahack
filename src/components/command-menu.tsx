@@ -1,6 +1,9 @@
 "use client";
 
+import { Command } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React from "react";
+import { Button } from "./ui/button";
 import {
   CommandDialog,
   CommandEmpty,
@@ -9,9 +12,6 @@ import {
   CommandItem,
   CommandList,
 } from "./ui/command";
-import { Button } from "./ui/button";
-import { Command } from "lucide-react";
-import { useRouter } from "next/navigation";
 
 export function CommandMenu() {
   const router = useRouter();
@@ -34,6 +34,7 @@ export function CommandMenu() {
       links: [
         { name: "Hackathons", href: "/hackathons" },
         { name: "Generate a presentation", href: "/generate" },
+        {name: "Organize hackathons", href: "/organize"}
       ],
     },
     {
