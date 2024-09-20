@@ -1,3 +1,8 @@
+# todo
+- [ ] create a github bearer token for project
+- [ ] use [this endpoint](https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28#get-a-repository-readme) to read readme content
+- [ ] use that readme content to generate pdf content using GPT-4o
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

@@ -1,7 +1,79 @@
-export default async function Page() {
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Loader2 } from "lucide-react";
+import { useGenerate } from "./use-generate";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+export default function Page() {
+  const { loading, link, onSubmit } = useGenerate();
+
   return (
     <div className="my-4">
-      <h2 className="text-center text-2xl font-bold">todo.</h2>
+      <h2 className="text-center text-2xl font-bold">generate presentation</h2>
+      <p className="text-muted-foreground">
+        all you need is a github repository, we will do the rest using powers of
+        AI.
+      </p>
+
+      <form onSubmit={onSubmit} className="mt-3">
+        <div className="mt-3 grid w-full gap-1.5">
+          <Label htmlFor="githubUrl">link to your github repository</Label>
+          <Input
+            id="githubUrl"
+            name="githubUrl"
+            placeholder="https://github.com/dastanozgeldi/boribay"
+            autoComplete="off"
+            required
+          />
+        </div>
+
+        <div className="mt-3 grid w-full gap-1.5">
+          <Label htmlFor="timeLimit">how much time to present?</Label>
+          <Input
+            id="timeLimit"
+            name="timeLimit"
+            placeholder="5 mins"
+            autoComplete="off"
+            required
+          />
+        </div>
+
+        <div className="mt-3 grid w-full gap-1.5">
+          <Label htmlFor="theme">Theme</Label>
+          <Select name="theme">
+            <SelectTrigger>
+              <SelectValue placeholder="Select a theme" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="dark">Dark</SelectItem>
+              <SelectItem value="light">Light</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <Button className="mt-3" disabled={loading}>
+          {loading && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
+          Submit
+        </Button>
+      </form>
+
+      {link && (
+        <p className="mt-3 flex items-center justify-end gap-3 text-center">
+          the presentation is ready!
+          <a href={link} download>
+            <Button variant="outline">download</Button>
+          </a>
+        </p>
+      )}
     </div>
   );
 }
