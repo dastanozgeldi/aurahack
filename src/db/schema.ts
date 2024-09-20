@@ -50,6 +50,7 @@ export const teams = pgTable("teams_table", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   hackathonId: integer("hackathon_id"),
+  projectId: integer("project_id"),
 
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
@@ -58,6 +59,10 @@ export const teamsRelations = relations(teams, ({ one, many }) => ({
   hackathon: one(hackathons, {
     fields: [teams.hackathonId],
     references: [hackathons.id],
+  }),
+  project: one(projects, {
+    fields: [teams.projectId],
+    references: [projects.id],
   }),
   members: many(profiles),
 }));

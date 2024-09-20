@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { db } from "@/db";
 import { notFound } from "next/navigation";
 import { JoinModal } from "../join-modal";
@@ -23,9 +24,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     },
   });
 
-  if (!hackathon) {
-    notFound();
-  }
+  if (!hackathon) notFound();
   return (
     <div className="mt-4">
       <h2 className="text-2xl font-bold">{hackathon.name}</h2>
@@ -47,15 +46,17 @@ export default async function Page({ params }: { params: { id: string } }) {
         {hackathon.teams.length > 0 ? (
           <ScrollArea className="mt-3 h-[300px]">
             {hackathon.teams.map((team) => (
-              <Card key={team.id} className="mb-3">
-                <CardHeader>
-                  <CardTitle>{team.name}</CardTitle>
-                  <CardDescription>
-                    {team.members.length} participants.
-                  </CardDescription>
-                </CardHeader>
-                {/* <CardContent>{team.explanation}</CardContent> */}
-              </Card>
+              <Link key={team.id} className="mb-3" href={`/teams/${team.id}`}>
+                <Card>
+                  <CardHeader>
+                    <CardTitle>{team.name}</CardTitle>
+                    <CardDescription>
+                      {team.members.length} participants.
+                    </CardDescription>
+                  </CardHeader>
+                  {/* <CardContent>{team.explanation}</CardContent> */}
+                </Card>
+              </Link>
             ))}
           </ScrollArea>
         ) : (
