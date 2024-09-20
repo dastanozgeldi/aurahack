@@ -15,16 +15,31 @@ import { Label } from "@/components/ui/label";
 import { useModal } from "./use-modal";
 import { Input } from "@/components/ui/input";
 import { MultiSelect } from "@/components/multi-select";
-import { SelectHackathon } from "@/db/schema";
+import { SelectHackathon, SelectProfile } from "@/db/schema";
 
-export function JoinModal({ hackathon }: { hackathon: SelectHackathon }) {
+export function JoinModal({
+  profile,
+  hackathon,
+}: {
+  profile: SelectProfile;
+  hackathon: SelectHackathon;
+}) {
   const { loading, open, setOpen, onSubmit } = useModal();
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="mt-3 w-full">
-          join <ArrowRight className="ml-2 h-5 w-5" />
+        <Button
+          disabled={profile.teamId ? true : false}
+          className="mt-3 w-full"
+        >
+          {profile.teamId ? (
+            <>already joined</>
+          ) : (
+            <>
+              join <ArrowRight className="ml-2 h-5 w-5" />
+            </>
+          )}
         </Button>
       </DialogTrigger>
       <DialogContent className="bg-black sm:max-w-md">
