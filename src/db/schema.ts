@@ -66,13 +66,17 @@ export const profiles = pgTable("profiles_table", {
   userId: text("user_id").primaryKey(),
   name: text("name").notNull(),
   username: varchar("username", { length: 20 }).unique(),
+  teamId: integer("team_id"),
 
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+export type SelectProfile = typeof profiles.$inferSelect;
+export type InsertProfile = typeof profiles.$inferInsert;
+
 export const profilesRelations = relations(profiles, ({ one }) => ({
-  user: one(teams, {
-    fields: [profiles.userId],
+  team: one(teams, {
+    fields: [profiles.teamId],
     references: [teams.id],
   }),
 }));
@@ -81,6 +85,7 @@ export const projects = pgTable("projects_table", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   githubUrl: text("github_url").notNull(),
+  loomUrl: text("loom_url"),
   teamId: integer("team_id")
     .references(() => teams.id, {
       onDelete: "cascade",
