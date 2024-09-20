@@ -19,6 +19,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Link from "next/link";
 
 export default function Page() {
   const { loading, link, onSubmit } = useGenerate();
@@ -78,9 +79,9 @@ export default function Page() {
         {link && (
           <p className="mt-3 flex items-center justify-end gap-3 text-center">
             the presentation is ready!
-            <a href={link} download>
+            <Link href={link} download>
               <Button variant="outline">download</Button>
-            </a>
+            </Link>
           </p>
         )}
       </CardContent>

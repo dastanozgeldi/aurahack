@@ -47,8 +47,7 @@ export async function generatePresentation(formData: FormData) {
   console.log(prompt);
   // TODO: send readme content to external API to generate presentation
   // the presentation is presumable uploaded to uploadthing.
-  const downloadUrl =
-    "https://www.iab.com/wp-content/uploads/2024/06/IAB_GenerativeAI_WhitePaper_June2024.pdf";
+  const downloadUrl = "/boribay.pptx";
 
   return downloadUrl;
 }
