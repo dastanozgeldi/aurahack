@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import emailjs from "emailjs-com";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 export default function OrganizePage() {
   const [formData, setFormData] = useState({
@@ -35,9 +35,7 @@ export default function OrganizePage() {
     }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const handleClick = () => {
     const templateParams = {
       event_name: formData.eventName,
       organizer_name: formData.organizerName,
@@ -76,7 +74,7 @@ export default function OrganizePage() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="eventName">Event Name</Label>
             <Input
@@ -142,7 +140,7 @@ export default function OrganizePage() {
         </form>
       </CardContent>
       <CardFooter>
-        <Button type="submit" className="w-full">
+        <Button className="w-full" onClick={handleClick}>
           Submit
         </Button>
       </CardFooter>
