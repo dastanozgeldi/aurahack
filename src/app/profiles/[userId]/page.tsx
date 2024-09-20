@@ -54,8 +54,8 @@ export default async function Page({ params }: { params: { userId: string } }) {
           ))}
         </div>
       ) : (
-        <div className="mt-3 flex h-[100px] items-center justify-center rounded-lg border text-center text-muted-foreground">
-          hackathons will be displayed here.
+        <div className="w-full mt-3 flex h-[100px] items-center justify-center rounded-lg border text-center text-muted-foreground">
+          decks will be displayed here.
         </div>
       )}
     </div>

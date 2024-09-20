@@ -21,7 +21,7 @@ export const useGenerate = () => {
 
       toast.success("Generated successfully.");
     } catch {
-      toast.error("Failed to join the hackathon.");
+      toast.error("Failed to generate the deck.");
     } finally {
       setLoading(false);
       router.refresh();
