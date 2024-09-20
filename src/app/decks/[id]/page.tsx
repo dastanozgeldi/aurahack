@@ -11,7 +11,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   if (!deck) notFound();
   return (
     <div>
-      <h2>
+      <h2 className="mb-3">
         Deck by{" "}
         <Link href={`/profiles/${deck.profile.userId}`}>
           @{deck.profile.username}

@@ -16,6 +16,7 @@ export const Nav = () => (
         </SignInButton>
       </SignedOut>
       <SignedIn>
+        <Link href="/profiles">profile</Link>
         <UserButton />
       </SignedIn>
 

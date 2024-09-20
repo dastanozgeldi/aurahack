@@ -1,4 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { db } from "@/db";
 import { clerkClient } from "@clerk/nextjs/server";
 import Link from "next/link";
@@ -9,6 +10,7 @@ export default async function Page({ params }: { params: { userId: string } }) {
     where: (profiles, { eq }) => eq(profiles.userId, params.userId),
     with: {
       team: true,
+      decks: true,
     },
   });
   if (!profile) notFound();
@@ -31,6 +33,30 @@ export default async function Page({ params }: { params: { userId: string } }) {
             {profile.team!.name}
           </Link>
         </p>
+      )}
+
+      <h2 className="my-4 text-center text-2xl font-bold">Decks</h2>
+      {profile.decks.length > 0 ? (
+        <div className="flex w-full flex-col gap-3">
+          {profile.decks.map((deck) => (
+            <Link key={deck.id} href={`/decks/${deck.id}`}>
+              <Card>
+                <CardHeader>
+                  <CardTitle>{deck.id}</CardTitle>
+                </CardHeader>
+                <CardFooter>
+                  <p className="text-muted-foreground">
+                    {deck.createdAt.toLocaleString()}
+                  </p>
+                </CardFooter>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      ) : (
+        <div className="mt-3 flex h-[100px] items-center justify-center rounded-lg border text-center text-muted-foreground">
+          hackathons will be displayed here.
+        </div>
       )}
     </div>
   );
