@@ -17,21 +17,23 @@ export default async function HackathonsPage() {
     <div>
       <h2 className="my-4 text-center text-2xl font-bold">Hackathons</h2>
       {hackathons.length > 0 ? (
-        hackathons.map((hackathon) => (
-          <Link key={hackathon.id} href={`/hackathons/${hackathon.id}`}>
-            <Card>
-              <CardHeader>
-                <CardTitle>{hackathon.name}</CardTitle>
-                <CardDescription>{hackathon.description}</CardDescription>
-              </CardHeader>
-              <CardFooter>
-                <p className="text-muted-foreground">
-                  {hackathon.createdAt.toLocaleString()}
-                </p>
-              </CardFooter>
-            </Card>
-          </Link>
-        ))
+        <div className="flex flex-col gap-3">
+          {hackathons.map((hackathon) => (
+            <Link key={hackathon.id} href={`/hackathons/${hackathon.id}`}>
+              <Card>
+                <CardHeader>
+                  <CardTitle>{hackathon.name}</CardTitle>
+                  <CardDescription>{hackathon.description}</CardDescription>
+                </CardHeader>
+                <CardFooter>
+                  <p className="text-muted-foreground">
+                    {hackathon.createdAt.toLocaleString()}
+                  </p>
+                </CardFooter>
+              </Card>
+            </Link>
+          ))}
+        </div>
       ) : (
         <div className="mt-3 flex h-[100px] items-center justify-center rounded-lg border text-center text-muted-foreground">
           hackathons will be displayed here.
