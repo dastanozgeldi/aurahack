@@ -79,10 +79,26 @@ export const profiles = pgTable("profiles_table", {
 export type SelectProfile = typeof profiles.$inferSelect;
 export type InsertProfile = typeof profiles.$inferInsert;
 
-export const profilesRelations = relations(profiles, ({ one }) => ({
+export const profilesRelations = relations(profiles, ({ one, many }) => ({
   team: one(teams, {
     fields: [profiles.teamId],
     references: [teams.id],
+  }),
+  decks: many(decks),
+}));
+
+export const decks = pgTable("decks_table", {
+  id: serial("id").primaryKey(),
+  code: text("code").notNull(),
+  userId: text("user_id").notNull(),
+
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const decksRelations = relations(decks, ({ one }) => ({
+  profile: one(profiles, {
+    fields: [decks.userId],
+    references: [profiles.userId],
   }),
 }));
 
