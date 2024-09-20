@@ -33,8 +33,7 @@ export function CommandMenu() {
       name: "Compete",
       links: [
         { name: "Hackathons", href: "/hackathons" },
-        { name: "Teams", href: "/teams" },
-        { name: "Projects", href: "/projects" },
+        { name: "Generate a presentation", href: "/generate" },
       ],
     },
     {
