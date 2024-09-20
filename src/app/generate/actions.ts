@@ -44,6 +44,7 @@ export async function generatePresentation(formData: FormData) {
     `- readme content: ${content}\n\n` +
     `Analyze the given readme and create a 10-slide pitch deck off of given information.`;
 
+  console.log(prompt);
   // TODO: send readme content to external API to generate presentation
   // the presentation is presumable uploaded to uploadthing.
   const downloadUrl =
