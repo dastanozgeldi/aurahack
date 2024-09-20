@@ -141,7 +141,7 @@ export function MultiSelect() {
                         e.preventDefault();
                         e.stopPropagation();
                       }}
-                      onSelect={(value) => {
+                      onSelect={() => {
                         setInputValue("");
                         setSelected((prev) => [...prev, framework]);
                       }}
